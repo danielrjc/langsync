@@ -11,8 +11,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.langsync.util.AuthenticationUtilities;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.common.api.Scope;
 import com.google.android.gms.tasks.Task;
@@ -21,6 +23,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -32,13 +37,16 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
 
 public class LoginActivity extends AppCompatActivity {
 
     private MaterialButton loginButton;
+    private TextView signUpLink;
     private GoogleSignInClient mGoogleSignInClient;
     private final OkHttpClient client = new OkHttpClient();
     private static String TAG = "LoginActivity";
+    private final AuthenticationUtilities  utilities = new AuthenticationUtilities(LoginActivity.this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +67,15 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 login();
+            }
+        });
+
+        signUpLink = findViewById(R.id.sign_up_link);
+        signUpLink.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -84,53 +101,43 @@ public class LoginActivity extends AppCompatActivity {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);
             String idToken = account.getIdToken();
-            String authCode = account.getServerAuthCode();
-
-            Log.d(TAG, "Account token: " + idToken);
-            Log.d(TAG, "Account Auth Code:" + authCode);
 
             RequestBody requestBody = RequestBody.create(MediaType.parse("application/json"), "{" +
                     "\"idToken\": \"" + idToken + "\"" +
                     "}");
 
-//            // TODO(developer): send ID Token to server and validate
             String url = "http://10.0.2.2:8081/authentication/login/";
             Request request = new Request.Builder()
                     .url(url)
                     .post(requestBody)
                     .build();
+
             client.newCall(request).enqueue(new Callback() {
                 @Override
                 public void onFailure(@NonNull Call call, @NonNull IOException e) {
                     e.printStackTrace();
+                    utilities.showToast(getString(R.string.login_error));
                 }
 
                 @Override
                 public void onResponse(@NonNull Call call, @NonNull final Response response) throws IOException {
+                    Log.d(TAG, response.toString());
                     if (!response.isSuccessful()) {
-                        throw new IOException("Unexpected code " + response);
+                        try {
+                            JSONObject responseBody = new JSONObject(response.body().string());
+                            Log.d(TAG, responseBody.toString());
+                            String errMessage = responseBody.getString("error");
+                            utilities.navigateTo(SignupActivity.class, errMessage);
+                        } catch (JSONException e) {
+                            utilities.showToast(getString(R.string.login_error));
+                        }
                     } else {
-                        assert response.body() != null;
-                        String jsonData = response.body().string();
-                        Log.d(TAG, jsonData);
-                        // TODO: Ensure token was authenticated, else tell them to login again
+                        utilities.navigateTo(MainActivity.class, getString(R.string.login_granted));
                     }
                 }
             });
-//
-              updateUI(account);
         } catch (ApiException e) {
-            Toast.makeText(LoginActivity.this,"handleSignInResult:error", Toast.LENGTH_SHORT).show();
-            updateUI(null);
-        }
-    }
-
-    private void updateUI(GoogleSignInAccount account){
-        // TODO: Change this to move the user to the dashboard/swiping screen
-        if (account == null) {
-            Log.d(TAG, "There is no user signed in");
-        } else {
-            Log.d(TAG, "Pref name: " + account.getDisplayName());
+            utilities.showToast(getString(R.string.login_error));
         }
     }
 }

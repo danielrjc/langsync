@@ -146,7 +146,7 @@ function getDefaultUser( email, displayName, picture) {
         registered: false,
         picture: picture,
         email: email,
-        registered: false,
+        registered: true,
         proficientLanguages: [],
         interestedLanguages: [],
         learningPreference: 'Both',

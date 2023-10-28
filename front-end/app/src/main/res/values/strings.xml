@@ -15,4 +15,8 @@
     <string name="recent_message">Recent Message</string>
     <string name="text_placeholder">Text Placeholder!</string>
     <string name="message_hint">Message...</string>
+    <string name="login_error">Login failed. Please try again.</string>
+    <string name="login_granted">Login granted.</string>
+    <string name="sign_up_error">Sign Up failed. Please try again.</string>
+    <string name="sign_up_granted">Sign Up granted.</string>
 </resources>

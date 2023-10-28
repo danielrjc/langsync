@@ -1,30 +1,44 @@
+const { captureRejectionSymbol } = require('johnny-five/lib/board');
 const authenticationServices = require('../services/authenticationService');
 const userServices = require('../services/userService');
 
 exports.handleLogin = async (req, res) => {
     const idToken = req.body.idToken;
+    console.log("Login with token " + idToken);
 
     const verificationResult = await authenticationServices.verifyGoogleToken(idToken);
 
     if (verificationResult.success) {
-        // TODO: Check that user is in the database and return their info
-        const user = await userServices.findOrCreateUser(verificationResult.ticket);
-        console.log(user)
-        res.status(200).json({ success: true, userId: user.email});
+        console.log("Verification successful");
+        const payload = verificationResult.ticket.getPayload();
+        const result = await userServices.findUserByEmail(payload.email);
+        if (result.success) {
+            console.log("User found");
+            res.status(200).json({ success: true, user: result.user });
+        }else{
+            console.log("User not found");
+            console.log(result);
+            res.status(401).json(result);
+        }
     } else {
+        console.log("Verification failed");
         res.status(401).json({ success: false, message: verificationResult.error });
     }
 };
 
 exports.handleSignup = async (req, res) => {
-    let idToken = req.params.idToken;
+    const idToken = req.body.idToken;
 
     const verificationResult = await authenticationServices.verifyGoogleToken(idToken);
 
     if (verificationResult.success) {
-        // TODO: Add user to the database
-        res.status(200).json({ success: true, userId: verificationResult.email});
+        const result = await userServices.findUnregistredOrCreateUser(verificationResult.ticket);
+        if (result.success) {
+            res.status(200).json({ success: true, user: result.user });
+        }else{
+            res.status(401).json({ success: false, error: result.error });
+        }
     } else {
-        res.status(401).json({ success: false, message: verificationResult.error });
+        res.status(401).json({ success: false, error: verificationResult.error });
     }
 };
