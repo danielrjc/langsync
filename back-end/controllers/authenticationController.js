@@ -13,7 +13,7 @@ exports.handleLogin = async (req, res) => {
         const result = await userServices.findUserByEmail(payload.email);
         if (result.success) {
             console.log("User found");
-            res.status(200).json({ success: true, user: result.user });
+            res.status(200).json({ success: true, userId: result.user._id });
         }else{
             console.log("User not found");
             res.status(401).json(result);
@@ -32,7 +32,7 @@ exports.handleSignup = async (req, res) => {
     if (verificationResult.success) {
         const result = await userServices.findUnregistredOrCreateUser(verificationResult.ticket);
         if (result.success) {
-            res.status(200).json({ success: true, user: result.user });
+            res.status(200).json({ success: true, userId: result.user._id });
         }else{
             res.status(401).json({ success: false, error: result.error });
         }

@@ -7,7 +7,9 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -132,7 +134,22 @@ public class LoginActivity extends AppCompatActivity {
                             utilities.showToast(getString(R.string.login_error));
                         }
                     } else {
-                        utilities.navigateTo(MainActivity.class, getString(R.string.login_granted));
+                        try {
+                            JSONObject responseBody = new JSONObject(response.body().string());
+                            String userId = responseBody.getString("userId");
+
+                            // Get a reference to SharedPreferences
+                            SharedPreferences sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key), Context.MODE_PRIVATE);
+
+                            SharedPreferences.Editor editor = sharedPreferences.edit();
+                            editor.putString("loggedUserId", userId);
+                            editor.apply();
+
+                            utilities.navigateTo(MainActivity.class, getString(R.string.login_granted));
+                        } catch (JSONException e) {
+                            Log.d(TAG, "Error getting user id");
+                            utilities.showToast(getString(R.string.login_error));
+                        }
                     }
                 }
             });
