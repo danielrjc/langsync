@@ -76,8 +76,8 @@ public class VideoCallActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         //TODO: get better logic for channel name, probably using ids
-        localUserInfo = intent.getStringExtra("LOCAL_USER");
-        remoteUserInfo = intent.getStringExtra("REMOTE_USER");
+        localUserInfo = intent.getStringExtra(getString(R.string.local_user_key));
+        remoteUserInfo = intent.getStringExtra(getString(R.string.remote_user_key));
         channelName = localUserInfo.compareTo(remoteUserInfo) < 0 ? localUserInfo + remoteUserInfo : remoteUserInfo + localUserInfo;
 
         setupVideoSDKEngine();

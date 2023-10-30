@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,6 +10,37 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/langsync_form_logo"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/langsync_logo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="16dp" />
+
+        <TextView
+            android:id="@+id/logo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/logo_text"
+            android:textColor="@color/black"
+            android:textSize="27sp"
+            android:layout_below="@+id/langsync_form_logo"
+            android:layout_centerHorizontal="true"
+            />
+
+        <TextView
+            android:id="@+id/meeting_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/video_call_text"
+            android:textColor="@color/black"
+            android:textSize="24sp"
+            android:layout_below="@+id/logo_text"
+            android:layout_centerHorizontal="true"
+            />
 
         <FrameLayout
             android:id="@+id/local_video_view_container"
@@ -16,7 +48,9 @@
             android:layout_height="240dp"
             android:layout_centerHorizontal="true"
             android:layout_margin="6dp"
-            android:background="@android:color/darker_gray" />
+            android:layout_below="@+id/meeting_text"
+            android:background="@android:color/darker_gray"
+            />
 
         <FrameLayout
             android:id="@+id/remote_video_view_container"
@@ -27,13 +61,18 @@
             android:layout_margin="6dp"
             android:background="@android:color/darker_gray" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/LeaveButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/remote_video_view_container"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="20sp"
             android:onClick="leaveChannel"
-            android:text="Leave" />
+            android:text="@string/video_call_leave"
+            android:textColor="@color/black"
+            android:backgroundTint="@color/light_grey"
+            android:textSize="20sp"
+            app:cornerRadius="0dp"/>
     </RelativeLayout>
 </ScrollView>
