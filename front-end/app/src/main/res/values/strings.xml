@@ -44,8 +44,7 @@
     <string name="meeting_successful">Meeting created</string>
     <string name="select_all_meeting_details">Please, select all meeting details</string>
     <string name="invited_user_id_key">INVITED_USER</string>
-    <string name="local_user_key">LOCAL_USER</string>
-    <string name="remote_user_key">REMOTE_USER</string>
+    <string name="channel_key">CHANNEL_KEY</string>
     <string name="video_call_text">Video Call</string>
     <string name="video_call_leave">Leave Video Call</string>
     <string-array name="duration_options">

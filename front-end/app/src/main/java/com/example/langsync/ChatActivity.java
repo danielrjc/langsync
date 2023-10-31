@@ -99,8 +99,7 @@ public class ChatActivity extends AppCompatActivity {
         });
         videoCall.setOnClickListener(view -> {
             Intent intent = new Intent(ChatActivity.this, VideoCallActivity.class);
-            intent.putExtra("REMOTE_USER", "test");
-            intent.putExtra("LOCAL_USER", "channel");
+            intent.putExtra(getString(R.string.channel_key), chatroomId);
             startActivity(intent);
         });
         sendMsg.setOnClickListener(v -> {

@@ -45,13 +45,13 @@ public class VideoCallActivity extends AppCompatActivity {
             };
 
     // Fill the App ID of your project generated on Agora Console.
-    private final String appId = "8c6d6c9355eb4aeab83c5798f97d89cc";//TODO: Hide this string
+    private final String appId = "8c6d6c9355eb4aeab83c5798f97d89cc";
     // Fill the channel name.
     private String channelName;
     // Fill the temp token generated on Agora Console.
     private String token;
     // An integer that identifies the local user.
-    private int uid = 0; //TODO: Get proper user id
+    private int uid = 0;
     private boolean isJoined = false;
     private String localUserInfo;
     private String remoteUserInfo;
@@ -75,10 +75,7 @@ public class VideoCallActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        //TODO: get better logic for channel name, probably using ids
-        localUserInfo = intent.getStringExtra(getString(R.string.local_user_key));
-        remoteUserInfo = intent.getStringExtra(getString(R.string.remote_user_key));
-        channelName = localUserInfo.compareTo(remoteUserInfo) < 0 ? localUserInfo + remoteUserInfo : remoteUserInfo + localUserInfo;
+        channelName = intent.getStringExtra(getString(R.string.channel_key));
 
         setupVideoSDKEngine();
 
