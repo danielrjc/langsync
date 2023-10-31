@@ -38,6 +38,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 
+// Timepicker logic adapted from https://www.youtube.com/watch?v=c6c1giRekB4&ab_channel=CodeWithCal
 public class CalendarActivity extends AppCompatActivity {
     private Spinner durationSpinner;
     private Button createEventButton;
@@ -48,6 +49,7 @@ public class CalendarActivity extends AppCompatActivity {
     private final AuthenticationUtilities utilities = new AuthenticationUtilities(CalendarActivity.this);
     private String invitedUserId;
 
+    // ChatGPT usage: No
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,6 +112,7 @@ public class CalendarActivity extends AppCompatActivity {
         durationSpinner.setAdapter(durationAdapter);
     }
 
+    // ChatGPT usage: No
     public void popTimePicker(View view) {
         TimePickerDialog.OnTimeSetListener onTimeSetListener = (timePicker, selectedHour, selectedMinute) -> {
             hour = selectedHour;
@@ -127,6 +130,7 @@ public class CalendarActivity extends AppCompatActivity {
         timePickerDialog.show();
     }
 
+    // ChatGPT usage: No
     public void popDatePicker(View view) {
         DatePickerDialog.OnDateSetListener onDateSetListener = (datePicker, selectedYear, selectedMonth, selectedDay) -> {
             year = selectedYear;
@@ -149,6 +153,7 @@ public class CalendarActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+    // ChatGPT usage: Partial
     private JSONObject generateCreateEventRequestBody() throws JSONException {
         String selectedDuration = durationSpinner.getSelectedItem().toString().replace(" minutes", "");
         String timeZone = TimeZone.getDefault().getID();

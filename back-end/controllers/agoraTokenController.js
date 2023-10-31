@@ -2,6 +2,8 @@ const agoraTokenService = require('../services/agoraTokenService');
 const { RtcRole } = require('agora-access-token');
 require('dotenv').config();
 
+//ChatGPT Usage: No
+// Adapted from https://www.agora.io/en/blog/how-to-build-a-token-server-for-agora-applications-using-nodejs/
 exports.getRTCToken = async (req, resp) => { 
     resp.header('Access-Control-Allow-Origin', '*');
     const channelName = req.params.channel;

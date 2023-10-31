@@ -7,6 +7,7 @@ const client = new OAuth2Client({
     clientSecret: process.env.CLIENT_SECRET
 })
 
+// ChatGPT Usage: No
 // Verifies that the tokens retrieved from login and sign up are valid
 async function verifyGoogleToken(idToken) {
     try {
@@ -34,6 +35,7 @@ async function retrieveTokens(authorizationCode) {
     }
 }
 
+//ChatGPT Usage: No
 async function getGoogleClient(authCode){
     const tokensResponse = await retrieveTokens(authCode);
 

@@ -51,6 +51,8 @@ public class LoginActivity extends AppCompatActivity {
     private final AuthenticationUtilities  utilities = new AuthenticationUtilities(LoginActivity.this);
 
     private TextView signUpText;
+
+    // ChatGPT usage: No
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    // ChatGPT usage: No
     ActivityResultLauncher<Intent> loginLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
         @Override
         public void onActivityResult(ActivityResult result) {
@@ -95,11 +98,13 @@ public class LoginActivity extends AppCompatActivity {
         }
     });
 
+    // ChatGPT usage: No
     private void login() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         loginLauncher.launch(signInIntent);
     }
 
+    // ChatGPT usage: No
     private void handleLoginResult(@NonNull Task<GoogleSignInAccount> task) {
         try {
             GoogleSignInAccount account = task.getResult(ApiException.class);

@@ -3,6 +3,7 @@ const { getDefaultInitialIdealMatch } = require("../models/idealMatch");
 
 
 // Check if targetUser likes sourceUser and matches
+//ChatGPT Usage: No
 async function getRecommendedUsers(userId){
     let user = await User.findById(userId);
     // TODO: Add a filter to the find function to 
@@ -35,7 +36,7 @@ async function getRecommendedUsers(userId){
 
     return recommendedUsers;
 }
-
+//ChatGPT Usage: No
 function sortUsersOnScore (users, idealMatch) {
     const usersWithScore = users.map((user) => {
         const score = getScore(user, idealMatch);
@@ -45,12 +46,14 @@ function sortUsersOnScore (users, idealMatch) {
     return sortedUsersWithScore.map((userWithScore) => userWithScore.user);
 }
 
+//ChatGPT Usage: No
 function getScore(user, idealMatch) {
     const formatedUser = getDefaultInitialIdealMatch(user);
     const score = calculateScore(formatedUser, idealMatch);
     return score;
 }
 
+//ChatGPT Usage: Yes
 function calculateScore(user, targetUser) {
     // Step 1: Calculate Euclidean distances
     const ageDistance = Math.abs(user.age - targetUser.age);

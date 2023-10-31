@@ -36,6 +36,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+// Code adapted from https://docs.agora.io/en/video-calling/get-started/get-started-sdk?platform=android
 public class VideoCallActivity extends AppCompatActivity {
     private static final int PERMISSION_REQ_ID = 22;
     private static final String[] REQUESTED_PERMISSIONS =
@@ -63,6 +64,7 @@ public class VideoCallActivity extends AppCompatActivity {
     private SurfaceView remoteSurfaceView;
     private final OkHttpClient client = new OkHttpClient();
 
+    // ChatGPT usage: No
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +89,7 @@ public class VideoCallActivity extends AppCompatActivity {
         }
     }
 
+    // ChatGPT usage: No
     private boolean checkSelfPermission()
     {
         if (ContextCompat.checkSelfPermission(this, REQUESTED_PERMISSIONS[0]) !=  PackageManager.PERMISSION_GRANTED ||
@@ -97,13 +100,14 @@ public class VideoCallActivity extends AppCompatActivity {
         return true;
     }
 
+    // ChatGPT usage: No
     void showMessage(String message) {
         Log.d("Agora Video Call", message);
         runOnUiThread(() ->
                 Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show());
     }
 
-    //Todo: Create real connection with server
+    // ChatGPT usage: No
     private void startVideoCall() throws IOException{
         String url = getString(R.string.base_url) + "agoraToken/" + channelName + "/publisher/uid/" + uid;
         Request request = new Request.Builder()
@@ -139,6 +143,7 @@ public class VideoCallActivity extends AppCompatActivity {
         });
     }
 
+    // ChatGPT usage: No
     private final IRtcEngineEventHandler mRtcEventHandler = new IRtcEngineEventHandler() {
         @Override
         // Listen for the remote host joining the channel to get the uid of the host.
@@ -162,6 +167,7 @@ public class VideoCallActivity extends AppCompatActivity {
         }
     };
 
+    // ChatGPT usage: No
     private void setupVideoSDKEngine() {
 
         try {
@@ -178,6 +184,7 @@ public class VideoCallActivity extends AppCompatActivity {
         }
     }
 
+    // ChatGPT usage: No
     private void setupRemoteVideo(int uid) {
         FrameLayout container = findViewById(R.id.remote_video_view_container);
         remoteSurfaceView = new SurfaceView(getBaseContext());
@@ -188,6 +195,7 @@ public class VideoCallActivity extends AppCompatActivity {
         remoteSurfaceView.setVisibility(View.VISIBLE);
     }
 
+    // ChatGPT usage: No
     private void setupLocalVideo() {
         FrameLayout container = findViewById(R.id.local_video_view_container);
         // Create a SurfaceView object and add it as a child to the FrameLayout.
@@ -197,6 +205,7 @@ public class VideoCallActivity extends AppCompatActivity {
         agoraEngine.setupLocalVideo(new VideoCanvas(localSurfaceView, VideoCanvas.RENDER_MODE_HIDDEN, 0));
     }
 
+    // ChatGPT usage: No
     public void joinChannel() {
         runOnUiThread(() -> {
             if (checkSelfPermission()) {
@@ -221,6 +230,7 @@ public class VideoCallActivity extends AppCompatActivity {
         });
     }
 
+    // ChatGPT usage: No
     public void leaveChannel(View view) {
         if (isJoined) {
             agoraEngine.leaveChannel();
@@ -234,6 +244,7 @@ public class VideoCallActivity extends AppCompatActivity {
         finish();
     }
 
+    // ChatGPT usage: No
     protected void onDestroy() {
         super.onDestroy();
         agoraEngine.stopPreview();
@@ -246,6 +257,7 @@ public class VideoCallActivity extends AppCompatActivity {
         }).start();
     }
 
+    // ChatGPT usage: No
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

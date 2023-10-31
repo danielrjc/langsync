@@ -1,5 +1,6 @@
 const googleCalendarService = require('../services/googleCalendarService');
 
+//ChatGPT Usage: No
 exports.createEvent = async (req, res) => {
     const authCode = req.body.authCode;
     const event = req.body.event;

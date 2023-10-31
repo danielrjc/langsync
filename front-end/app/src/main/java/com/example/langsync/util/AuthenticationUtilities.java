@@ -10,6 +10,8 @@ public class AuthenticationUtilities {
     public AuthenticationUtilities(Context context) {
         this.context = context;
     }
+
+    // ChatGPT usage: No
     public void navigateTo(Class<?> cls, String message){
         ((Activity) context).runOnUiThread(new Runnable() {
             @Override
@@ -21,6 +23,7 @@ public class AuthenticationUtilities {
         });
     }
 
+    // ChatGPT usage: No
     public void showToast(String message){
         ((Activity) context).runOnUiThread(() -> Toast.makeText(context, message, Toast.LENGTH_LONG).show());
     }

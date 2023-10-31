@@ -1,6 +1,7 @@
 const authenticationServices = require('../services/authenticationService');
 const userServices = require('../services/userService');
 
+//ChatGPT Usage: No
 exports.handleLogin = async (req, res) => {
     const idToken = req.body.idToken;
     console.log("Login with token " + idToken);
@@ -24,6 +25,7 @@ exports.handleLogin = async (req, res) => {
     }
 };
 
+//ChatGPT Usage: No
 exports.handleSignup = async (req, res) => {
     const idToken = req.body.idToken;
 

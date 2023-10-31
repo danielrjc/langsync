@@ -3,7 +3,7 @@ const moment = require('moment');
 const { getGoogleClient } = require('./authenticationService');
 const { findUserByID } = require('./userService');
 
-
+//ChatGPT Usage: No
 async function createEvent(authCode, rawEvent) {
     const clientResponse = await getGoogleClient(authCode);
 
@@ -35,6 +35,7 @@ async function createEvent(authCode, rawEvent) {
     }
 }
 
+//ChatGPT Usage: No
 async function generateLangSyncEventObject(rawEvent) {
     const hostUser = await findUserByID(rawEvent.hostUserId);
     const invitedUser = await findUserByID(rawEvent.invitedUserId);
