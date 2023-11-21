@@ -1,4 +1,4 @@
-const  mockUsers  = require("./mockedUsers");
+const  {mockedUsers}  = require("./mockedUsers");
 class User {
     constructor(obj) {
         this.email = obj.email;
@@ -12,7 +12,7 @@ class User {
         this.banned = obj.banned ?? false;
         
         this.save = jest.fn().mockImplementation(() => {
-            mockUsers.push({
+            mockedUsers.push({
                 _id: obj._id,
                 email: obj.email,
                 displayName: obj.displayName,
@@ -29,12 +29,13 @@ class User {
 }
 
 User.find = jest.fn((query) => {
+    if (!query) return { exec: () => mockedUsers };
     const { $and, learningPreference, interestedLanguages, proficientLanguages, banned } = query;
 
     const userId = $and.find((cond) => cond._id && cond._id.$ne)._id.$ne;
     const notInterestUsers = $and.find((cond) => cond._id && cond._id.$nin)._id.$nin;
 
-    let filteredUsers = mockUsers.filter((user) => {
+    let filteredUsers = mockedUsers.filter((user) => {
         return (
             user._id !== userId &&
             !notInterestUsers.includes(user._id) &&
@@ -51,13 +52,13 @@ User.findById = jest.fn().mockImplementation((id) =>{
     if(id === "errorId"){
         throw new Error('User not found');
     }
-    user = mockUsers.find((user) => user._id.equals(id));
+    user = mockedUsers.find((user) => user._id.equals(id));
     return user;
 })
 
 User.findOne = jest.fn().mockImplementation((query) =>{
     const { email } = query;
-    user = mockUsers.find((user) => user.email === email);
+    user = mockedUsers.find((user) => user.email === email) ?? null;
     return user;
 })
 

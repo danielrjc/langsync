@@ -1,4 +1,4 @@
-const mockedUsers = require('../models/__mocks__/mockedUsers');
+const {mockedUsers, unregisteredUser} = require('../models/__mocks__/mockedUsers');
 
 class MockedOAuth2Client {
     constructor({ clientId, clientSecret }) {
@@ -17,7 +17,7 @@ class MockedOAuth2Client {
       if (idToken === 'validToken' && audience === this.clientId) {
         email = 'mocked@email.com';
       } else if(idToken === 'validTokenUnregisteredUser'){
-        email = 'unregisterd@email.com';
+        email = unregisteredUser.email;
       } else if (idToken === 'validTokenRegisteredMockUser0'){
         email = mockedUsers[0].email;
       } else {

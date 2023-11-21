@@ -2,7 +2,7 @@
 const request = require('supertest');
 const app = require('../app'); 
 const { ObjectId } = require('mongodb');
-const mockedUsers = require('../models/__mocks__/mockedUsers');
+const {mockedUsers} = require('../models/__mocks__/mockedUsers');
 
 
 jest.mock('googleapis');

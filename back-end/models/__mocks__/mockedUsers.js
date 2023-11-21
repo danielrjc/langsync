@@ -336,6 +336,63 @@ const mockUser6 = {
   },
 };
 
-const mockUsers = [mockUser0, mockUser1, mockUser2, mockUser3, mockUser4, mockUser5, mockUser6 ];  
 
-module.exports = mockUsers;
+const mockUser7 = {
+  _id: new ObjectId('5f9d88b9d4b4d4c6a0b0f6a7'),
+  age: 30,
+  displayName: 'hasan',
+  registered: true,
+  picture: 'hasan.jpg',
+  email: 'hasan@example.com',
+  proficientLanguages: ['English'],
+  interestedLanguages: ['Portuguese'],
+  learningPreference: 'Expert',
+  matchedUsers: [],
+  blockedUsers: [],
+  likedUsers: [],
+  chatroomIDs: [],
+  badges: [],
+  interests: {
+    business: false,
+    sports: false,
+    cooking: false,
+    travel: false,
+    movies: false,
+    art: false,
+    music: false,
+    reading: false,
+    gaming: false,
+  },
+  admin: false,
+  banned: true,
+  idealMatch: {
+    age: 30,
+    interests: {
+      business: 0.5,
+      sports: 0.3,
+      cooking: 0.7,
+      travel: 0.2,
+      movies: 0.6,
+      art: 0.4,
+      music: 0.8,
+      reading: 0.9,
+      gaming: 0.1,
+    },
+    learningPreference: {
+      expert: 0.9,
+      partner: 0.6,
+    },
+  },
+};
+
+const unregisteredUser = {
+  email: "unregistered@gmail.com"
+}
+
+const unregisteredAdmin = {
+  email: "unregistered@admin.com"
+}
+
+const mockedUsers = [mockUser0, mockUser1, mockUser2, mockUser3, mockUser4, mockUser5, mockUser6, mockUser7 ];  
+
+module.exports = {mockedUsers, unregisteredUser, unregisteredAdmin};
