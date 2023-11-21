@@ -160,7 +160,6 @@ async function createAdmin(email) {
         displayName: "Admin",
         picture: ""
     }
-
     let admin = new User(adminData);
     await admin.save();
     return admin;

@@ -1,3 +1,5 @@
+const mockedUsers = require('../models/__mocks__/mockedUsers');
+
 class MockedOAuth2Client {
     constructor({ clientId, clientSecret }) {
       this.clientId = clientId;
@@ -11,18 +13,21 @@ class MockedOAuth2Client {
     }
   
     async verifyIdToken({ idToken, audience }) {
+      let email
       if (idToken === 'validToken' && audience === this.clientId) {
-        return { 
-          payload: { 
-            sub: 'mockedUserID', 
-            email: 'mockeduser@example.com' 
-          } 
-        };
+        email = 'mocked@email.com';
+      } else if(idToken === 'validTokenUnregisteredUser'){
+        email = 'unregisterd@email.com';
+      } else if (idToken === 'validTokenRegisteredMockUser0'){
+        email = mockedUsers[0].email;
       } else {
         throw new Error('Invalid token or audience');
       }
-      // Mocked implementation of token verification
-    }
+      return { 
+        getPayload: () => ({
+          sub: 'mockedUserID', 
+          email: email 
+      })};    }
   
     async getToken(authorizationCode) {
       if (authorizationCode === 'validAuthorizationCode') {

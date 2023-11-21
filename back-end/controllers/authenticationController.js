@@ -18,7 +18,7 @@ exports.handleLogin = async (req, res) => {
             res.status(401).json(result);
         }
     } else {
-        res.status(401).json({ success: false, message: verificationResult.error });
+        res.status(401).json({ success: false, error: verificationResult.error });
     }
 };
 

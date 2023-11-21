@@ -14,6 +14,12 @@ jobs:
       with:
         node-version: '21' 
 
+    - name: create env file
+      run: | 
+        cd back-end  # Navigate to the backend folder
+        touch .env
+        echo ADMIN_ACCESS_CODE="1234" >> .env
+
     - name: Install dependencies
       run: |
         cd back-end  # Navigate to the backend folder
