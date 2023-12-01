@@ -46,7 +46,7 @@ async function retrieveAccessToken(authorizationCode) {
 
 //ChatGPT Usage: No
 // Use authorization code to get new authorized Google Client
-async function getGoogleClient(authCode, userId ){
+async function getGoogleClient(authCode){
     const tokensResponse = await retrieveAccessToken(authCode);
 
     if(!tokensResponse.success) {
